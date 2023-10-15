@@ -12,7 +12,7 @@ export default function App() {
     const [display, setDisplay] = useState(true);
     const [cancel, setCancel] = useState(false);
 
-    const qrConfig = { fps: 10, qrbox: { width: 200, height: 200 } };
+    const qrConfig = { fps: 10, qrbox: { width: 400, height: 400 } };
 
     //Start Scanning and capturing data
     const handleClickAdvanced = () => {
@@ -21,7 +21,8 @@ export default function App() {
         setCancel(true);
 
         const qrCodeSuccessCallback = (decodeText, decodedResult) => {
-            document.getElementById('search_product').value(decodeText);
+            console.log(decodeText);
+            setResult(decodeText);
         };
 
         html5QrCode
@@ -47,10 +48,8 @@ export default function App() {
 
     return (
         <div className="App">
-            <h1>Hello CodeSandbox</h1>
-            <h2>Start editing to see some magic happen!</h2>
             <div className={display ? "d-none" : "qr-reader-container"}>
-                <div id="reader" style={{ width: "300px" }} />
+                <div id="reader" style={{ width: "500px" }} />
             </div>
             <button onClick={() => handleClickAdvanced()}>Scan</button>
             {cancel && (
