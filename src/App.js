@@ -23,7 +23,16 @@ export default function App() {
         const qrCodeSuccessCallback = (decodeText, decodedResult) => {
             console.log(decodeText);
             setResult(decodeText);
-            document.getElementById('search_product').value = decodeText;
+            window.parent.postMessage(
+                {
+                    event_id: 'my_cors_message',
+                    data: {
+                        v1: 'value1',
+                        v2: 'value2'
+                    }
+                },
+                "*"
+            );
         };
 
         html5QrCode
