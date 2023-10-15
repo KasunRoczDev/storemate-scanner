@@ -9,15 +9,10 @@ export default function App() {
         handleClickAdvanced();
     }, []);
 
-    const [display, setDisplay] = useState(true);
-    const [cancel, setCancel] = useState(false);
-
-    const qrConfig = { fps: 10, qrbox: { width: 300, height: 300 } };
+    const qrConfig = { fps: 10, qrbox: { width: 200, height: 200 } };
 
     //Start Scanning and capturing data
     const handleClickAdvanced = () => {
-        setDisplay(false);
-        setCancel(true);
 
         const qrCodeSuccessCallback = (decodeText, decodedResult) => {
             window.parent.postMessage(
@@ -44,9 +39,7 @@ export default function App() {
         html5QrCode
             .stop()
             .then((res) => {
-                setDisplay(true);
                 html5QrCode.clear();
-                setCancel(false);
             })
             .catch((err) => {
                 console.log(err);
@@ -55,8 +48,8 @@ export default function App() {
 
     return (
         <div className="App">
-            <div className={display ? "d-none" : "qr-reader-container"}>
-                <div id="reader" style={{ width: "400px" }} />
+            <div className= "qr-reader-container">
+                <div id="reader" style={{ width: "400px"}} />
             </div>
         </div>
     );
