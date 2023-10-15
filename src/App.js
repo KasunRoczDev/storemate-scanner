@@ -19,6 +19,7 @@ export default function App() {
     const handleClickAdvanced = () => {
 
         const qrCodeSuccessCallback = (decodeText, decodedResult) => {
+            navigator.vibrate([200]); // Vibrate for 200 milliseconds
             window.parent.postMessage(
                 {
                     event_id: 'add_scanned_product',
