@@ -11,15 +11,13 @@ export default function App() {
 
     const qrConfig = {
         fps: 10,
-        qrbox: { width: 200, height: 200 },
-        disableFlip:false
+        qrbox: { width: 200, height: 200 }
     };
 
     //Start Scanning and capturing data
     const handleClickAdvanced = () => {
 
         const qrCodeSuccessCallback = (decodeText, decodedResult) => {
-            navigator.vibrate([200]); // Vibrate for 200 milliseconds
             window.parent.postMessage(
                 {
                     event_id: 'add_scanned_product',
@@ -40,16 +38,16 @@ export default function App() {
     };
 
     //stop camera
-    const handleStop = () => {
-        html5QrCode
-            .stop()
-            .then((res) => {
-                html5QrCode.clear();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
+    // const handleStop = () => {
+    //     html5QrCode
+    //         .stop()
+    //         .then((res) => {
+    //             html5QrCode.clear();
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // };
 
     return (
         <div className="App">
