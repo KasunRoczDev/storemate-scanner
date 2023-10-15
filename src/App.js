@@ -6,22 +6,20 @@ let html5QrCode;
 export default function App() {
     useEffect(() => {
         html5QrCode = new Html5Qrcode("reader");
+        handleClickAdvanced();
     }, []);
 
-    const [result, setResult] = useState("");
     const [display, setDisplay] = useState(true);
     const [cancel, setCancel] = useState(false);
 
-    const qrConfig = { fps: 10, qrbox: { width: 400, height: 400 } };
+    const qrConfig = { fps: 10, qrbox: { width: 300, height: 300 } };
 
     //Start Scanning and capturing data
     const handleClickAdvanced = () => {
-        setResult("");
         setDisplay(false);
         setCancel(true);
 
         const qrCodeSuccessCallback = (decodeText, decodedResult) => {
-            setResult(decodeText);
             window.parent.postMessage(
                 {
                     event_id: 'add_scanned_product',
@@ -58,16 +56,8 @@ export default function App() {
     return (
         <div className="App">
             <div className={display ? "d-none" : "qr-reader-container"}>
-                <div id="reader" style={{ width: "500px" }} />
+                <div id="reader" style={{ width: "400px" }} />
             </div>
-            <button onClick={() => handleClickAdvanced()}>Scan</button>
-            {cancel && (
-                <div className="d-flex justify-content-center align-items-center mt-4">
-                    <button className="button-styles" onClick={() => handleStop()}>
-                        Stop
-                    </button>
-                </div>
-            )}
         </div>
     );
 }
