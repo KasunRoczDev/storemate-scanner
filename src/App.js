@@ -52,7 +52,7 @@ export default function App() {
     return (
         <div className="App">
             <div className= "qr-reader-container">
-                <div id="reader" style={{ width: "400px"}} />
+                <div id="reader" style={{ width: "300px"}} />
             </div>
         </div>
     );
