@@ -1,6 +1,6 @@
 import "./styles.css";
 import { Html5Qrcode } from "html5-qrcode";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 let html5QrCode;
 export default function App() {
@@ -9,7 +9,11 @@ export default function App() {
         handleClickAdvanced();
     }, []);
 
-    const qrConfig = { fps: 10, qrbox: { width: 200, height: 200 } };
+    const qrConfig = {
+        fps: 10,
+        qrbox: { width: 200, height: 200 },
+        disableFlip:false
+    };
 
     //Start Scanning and capturing data
     const handleClickAdvanced = () => {
@@ -24,7 +28,7 @@ export default function App() {
                 },
                 "*"
             );
-            handleStop();
+            // handleStop();
         };
 
         html5QrCode
