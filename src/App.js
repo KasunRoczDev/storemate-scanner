@@ -1,71 +1,67 @@
-// App.js
-import React, {useEffect, useState} from "react";
+import "./styles.css";
 import { Html5Qrcode } from "html5-qrcode";
+import { useState, useEffect } from "react";
 
-const qrConfig = { fps: 10, qrbox: { width: 300, height: 300 } };
-const brConfig = { fps: 10, qrbox: { width: 300, height: 150 } };
 let html5QrCode;
+export default function App() {
+    useEffect(() => {
+        html5QrCode = new Html5Qrcode("reader");
+    }, []);
 
-const Scanner = (props) => {
-  useEffect(async () => {
-      html5QrCode = new Html5Qrcode("reader");
+    const [result, setResult] = useState("");
+    const [display, setDisplay] = useState(true);
+    const [cancel, setCancel] = useState(false);
 
-      let permission = await navigator.permissions.query({
-          name: "camera"
-      });
+    const qrConfig = { fps: 10, qrbox: { width: 200, height: 200 } };
 
-      console.log(permission);
+    //Start Scanning and capturing data
+    const handleClickAdvanced = () => {
+        setResult("");
+        setDisplay(false);
+        setCancel(true);
 
-      // Use getUserMedia to access the camera when the component mounts
-      // if (navigator.mediaDevices || navigator.mediaDevices.getUserMedia) {
-      //     navigator.mediaDevices.getUserMedia({audio: false, video: true})
-      //         .then(function (stream) {
-      //             // Access granted, do something with the stream if needed
-      //         })
-      //         .catch(function (error) {
-      //             console.error('Error accessing camera and microphone:', error);
-      //         });
-      // } else {
-      //     console.error('getUserMedia is not supported in this browser.');
-      // }
-  }, []);
+        const qrCodeSuccessCallback = (decodeText, decodedResult) => {
+            console.log(decodeText);
+            setResult(decodeText);
+        };
 
-  const handleClickAdvanced = () => {
-    const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-      props.onResult(decodedText);
-      handleStop();
+        html5QrCode
+            .start({ facingMode: "environment" }, qrConfig, qrCodeSuccessCallback)
+            .catch((err) => {
+                console.log(err);
+            });
     };
-    html5QrCode.start(
-        { facingMode: "environment" },
-        props.type === "QR" ? qrConfig : brConfig,
-        qrCodeSuccessCallback
+
+    //stop camera
+    const handleStop = () => {
+        html5QrCode
+            .stop()
+            .then((res) => {
+                setDisplay(true);
+                html5QrCode.clear();
+                setCancel(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    return (
+        <div className="App">
+            <h1>Hello CodeSandbox</h1>
+            <h2>Start editing to see some magic happen!</h2>
+            <div className={display ? "d-none" : "qr-reader-container"}>
+                <div id="reader" style={{ width: "300px" }} />
+            </div>
+            <button onClick={() => handleClickAdvanced()}>Scan</button>
+            {cancel && (
+                <div className="d-flex justify-content-center align-items-center mt-4">
+                    <button className="button-styles" onClick={() => handleStop()}>
+                        Stop
+                    </button>
+                </div>
+            )}
+            <p>{result}</p>
+        </div>
     );
-  };
-
-  const handleStop = () => {
-    try {
-      html5QrCode
-          .stop()
-          .then((res) => {
-            html5QrCode.clear();
-          })
-          .catch((err) => {
-            console.log(err.message);
-          });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
-      <div style={{ position: "relative" }}>
-        <div id="reader" width="100%" />
-        <button onClick={handleClickAdvanced}>
-          click pro {props.type}
-        </button>
-        <button onClick={handleStop}>stop pro</button>
-      </div>
-  );
-};
-
-export default Scanner;
+}

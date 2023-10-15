@@ -1,20 +1,13 @@
-// index.js
-import React from "react";
-import ReactDOM from "react-dom";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+
 import App from "./App";
 
 const rootElement = document.getElementById("root");
+const root = createRoot(rootElement);
 
-const scannerConfigs = [
-    { type: "QR", onResult: (res) => alert(res) },
-    { type: "BR", onResult: (res) => alert(res) },
-];
-
-ReactDOM.render(
-    <React.StrictMode>
-        {scannerConfigs.map((config, index) => (
-            <App key={index} {...config} />
-        ))}
-    </React.StrictMode>,
-    rootElement
+root.render(
+    <StrictMode>
+        <App />
+    </StrictMode>
 );
