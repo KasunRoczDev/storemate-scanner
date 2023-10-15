@@ -27,7 +27,7 @@ export default function App() {
                 },
                 "*"
             );
-            // handleStop();
+            handleStop();
         };
 
         html5QrCode
@@ -37,17 +37,17 @@ export default function App() {
             });
     };
 
-    //stop camera
-    // const handleStop = () => {
-    //     html5QrCode
-    //         .stop()
-    //         .then((res) => {
-    //             html5QrCode.clear();
-    //         })
-    //         .catch((err) => {
-    //             console.log(err);
-    //         });
-    // };
+    // stop camera
+    const handleStop = () => {
+        html5QrCode
+            .stop()
+            .then((res) => {
+                html5QrCode.clear();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     return (
         <div className="App">
