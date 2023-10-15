@@ -23,6 +23,7 @@ export default function App() {
         const qrCodeSuccessCallback = (decodeText, decodedResult) => {
             console.log(decodeText);
             setResult(decodeText);
+            document.getElementById('search_product').value = decodeText;
         };
 
         html5QrCode
