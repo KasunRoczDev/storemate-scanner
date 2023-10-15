@@ -26,7 +26,7 @@ export default function App() {
                 {
                     event_id: 'add_scanned_product',
                     data: {
-                        sku: result
+                        sku: decodeText
                     }
                 },
                 "*"
