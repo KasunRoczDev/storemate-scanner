@@ -21,14 +21,12 @@ export default function App() {
         setCancel(true);
 
         const qrCodeSuccessCallback = (decodeText, decodedResult) => {
-            console.log(decodeText);
             setResult(decodeText);
             window.parent.postMessage(
                 {
-                    event_id: 'my_cors_message',
+                    event_id: 'add_scanned_product',
                     data: {
-                        v1: 'value1',
-                        v2: 'value2'
+                        sku: result
                     }
                 },
                 "*"
@@ -69,7 +67,6 @@ export default function App() {
                     </button>
                 </div>
             )}
-            <p>{result}</p>
         </div>
     );
 }
