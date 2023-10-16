@@ -4,17 +4,13 @@ import { useEffect } from "react";
 
 let html5QrCode;
 export default function App() {
-    useEffect(() => {
-        html5QrCode = new Html5Qrcode("reader");
-        handleClickAdvanced();
-    }, []);
-
+    
     const qrConfig = {fps: 10, qrbox: { width: 200, height: 200 }
     };
 
     //Start Scanning and capturing data
     const handleClickAdvanced = () => {
-
+        const html5QrCode = new Html5Qrcode("reader");
         const qrCodeSuccessCallback = (decodeText, decodedResult) => {
             window.parent.postMessage(
                 {
@@ -46,6 +42,11 @@ export default function App() {
                 console.log(err);
             });
     };
+
+    useEffect(() => {
+        // Automatically start the scanning process when the component is mounted
+        handleClickAdvanced();
+    }, []);
 
     return (
         <div className="App">
