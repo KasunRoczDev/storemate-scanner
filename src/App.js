@@ -9,9 +9,7 @@ export default function App() {
         handleClickAdvanced();
     }, []);
 
-    const qrConfig = {
-        fps: 10,
-        qrbox: { width: 200, height: 200 }
+    const qrConfig = {fps: 10, qrbox: { width: 200, height: 200 }
     };
 
     //Start Scanning and capturing data
