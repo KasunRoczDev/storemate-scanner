@@ -4,7 +4,10 @@ import { useEffect } from "react";
 
 let html5QrCode;
 export default function App() {
-    
+    useEffect(() => {
+        handleClickAdvanced();
+    }, []);
+
     const qrConfig = {fps: 10, qrbox: { width: 200, height: 200 }
     };
 
@@ -42,11 +45,6 @@ export default function App() {
                 console.log(err);
             });
     };
-
-    useEffect(() => {
-        // Automatically start the scanning process when the component is mounted
-        handleClickAdvanced();
-    }, []);
 
     return (
         <div className="App">
